@@ -1,0 +1,144 @@
+---
+title: "Class 17: Analyzing sequencing data in the cloud"
+author: "Angelika (PID: A17475228)"
+format: pdf
+toc: true
+---
+
+## Downstream analysis
+
+Back on our laptop we can now use R and Bioconductor tools to further explore this large scale data-set.
+
+For example there is an R function called tximport() in the tximport package, which enables straightforward import of Kallisto results.
+
+With each sample having its own directory containing the Kallisto output, we can import the transcript count estimates into R using: `BiocManager::install("tximport")`
+
+library(tximport)
+
+```{r}
+library(tximport)
+
+# setup the folder and file-names to read
+folders <- dir(pattern="SRR21568*")
+samples <- sub("_quant", "", folders)
+files <- file.path( folders, "abundance.h5" )
+names(files) <- samples
+
+txi.kallisto <- tximport(files, type = "kallisto", txOut = TRUE)
+```
+
+```{r}
+head(txi.kallisto$counts)
+```
+**We now have our estimated transcript counts for each sample in R. We can see how many transcripts we have for each sample:**
+
+```{r}
+colSums(txi.kallisto$counts)
+```
+
+**And how many transcripts are detected in at least one sample:**
+
+```{r}
+sum(rowSums(txi.kallisto$counts)>0)
+```
+
+**Before subsequent analysis, we might want to filter out those annotated transcripts with no reads:**
+
+```{r}
+to.keep <- rowSums(txi.kallisto$counts) > 0
+kset.nonzero <- txi.kallisto$counts[to.keep,]
+```
+
+**And those with no change over the samples:**
+
+```{r}
+keep2 <- apply(kset.nonzero,1,sd)>0
+x <- kset.nonzero[keep2,]
+```
+
+## Principal Component Analysis
+
+We can now apply any exploratory analysis technique to this counts matrix. As an example, we will perform a PCA of the transcriptomic profiles of these samples.
+
+Now we compute the principal components, centering and scaling each transcript’s measured levels so that each feature contributes equally to the PCA:
+
+```{r}
+pca <- prcomp(t(x), scale=TRUE)
+
+summary(pca)
+```
+**Now we can use the first two principal components as a co-ordinate system for visualizing the summarized transcriptomic profiles of each sample:**
+
+```{r}
+plot(pca$x[,1], pca$x[,2],
+     col=c("blue","blue","red","red"),
+     xlab="PC1", ylab="PC2", pch=16)
+```
+
+> Q. Use ggplot to make a similar figure of PC1 vs PC2 and a separate figure PC1 vs PC3 and PC2 vs PC3.
+
+```{r}
+library(ggplot2)
+library(ggrepel)
+
+mycols <- c("blue","pink","red","purple")
+
+ggplot(pca$x) +
+  aes(PC1, PC2, label=rownames(pca$x)) +
+  geom_point( col=mycols ) +
+  geom_text_repel( col=mycols ) +
+  theme_bw()
+```
+**PC1 vs PC3**
+```{r}
+library(ggplot2)
+library(ggrepel)
+
+mycols <- c("blue","pink","red","purple")
+
+ggplot(pca$x) +
+  aes(PC1, PC3, label=rownames(pca$x)) +
+  geom_point( col=mycols ) +
+  geom_text_repel( col=mycols ) +
+  theme_bw()
+```
+**PC2 vs PC3**
+```{r}
+library(ggplot2)
+library(ggrepel)
+
+mycols <- c("blue","pink","red","purple")
+
+ggplot(pca$x) +
+  aes(PC2, PC3, label=rownames(pca$x)) +
+  geom_point( col=mycols ) +
+  geom_text_repel( col=mycols ) +
+  theme_bw()
+```
+
+## Optional: Differential-expression analysis
+
+We can use DESeq2 to complete the differential-expression analysis that we are already familiar with:
+
+An example of creating a DESeqDataSet for use with DESeq2:
+
+```{r}
+library(DESeq2)
+
+sampleTable <- data.frame(condition = factor(rep(c("control", "treatment"), each = 2)))
+rownames(sampleTable) <- colnames(txi.kallisto$counts)
+
+dds <- DESeqDataSetFromTximport(txi.kallisto,
+                                sampleTable, 
+                                ~condition)
+```
+
+**Using counts and average transcript lengths from tximport**
+
+```{r}
+dds <- DESeq(dds)
+
+res <- results(dds)
+head(res)
+```
+
