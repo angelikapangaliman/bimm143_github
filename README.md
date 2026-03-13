@@ -4,7 +4,7 @@ My classwork from [BIMM143](https://bioboot.github.io/bimm143_W26/) at UC San Di
 
 * A list of work I have completed throughout the quarter:
 
-Class 04 [R fundamentals](class04/class04.md)
+Class 04 [R fundamentals](class04/class04.pdf)
 
 Class 05 [Data wiz with ggplot](class05/class05.md)
 
@@ -27,5 +27,3 @@ Class 14 [Pathway Analysis from RNA-Seq Results](Class14/Class14.md)
 Class 17 [Analyzing Sequencing Data in the Cloud](class17/class17.md)
 
 Class 18 [Investigating Pertussis Resurgence](class18/class18.md)
-
-Class 19 [Cancer Mutation Analysis](Class19/Class19.md)
