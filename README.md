@@ -7,6 +7,10 @@ My classwork from [BIMM143](https://bioboot.github.io/bimm143_W26/) at UC San Di
 
 Class 04 [R fundamentals](class04/class04.pdf)
 
-Class 05 [Data wiz with ggplot](class05/class05.pdf)
+Class 05 [Data wiz with ggplot](class05/class05.md)
 
 Class 06
+
+`quarto render */*.qmd --to gfm`
+
+quarto render Class10/* --to gfm
