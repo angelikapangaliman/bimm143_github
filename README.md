@@ -1,21 +1,13 @@
-# BIMM143 Winter Quarter 2026
+# BIMM143 (Bioinformatics Labratory) Winter '26
 My classwork from [BIMM143](https://bioboot.github.io/bimm143_W26/) at UC San Diego
 
-## Index of Material
 
-* Introductory classes
+* A list of work I have completed throughout the quarter:
 
 Class 04 [R fundamentals](class04/class04.md)
 
 Class 05 [Data wiz with ggplot](class05/class05.md)
 
-<<<<<<< HEAD
-Class 06
-
-`quarto render */*.qmd --to gfm`
-
-quarto render Class10/* --to gfm
-=======
 Class 06 [R Functions](class06/class06.md)
 
 Class 07 [Machine Learning 1](class07/class07.md)
@@ -37,4 +29,3 @@ Class 17 [Analyzing Sequencing Data in the Cloud](class17/class17.md)
 Class 18 [Investigating Pertussis Resurgence](class18/class18.md)
 
 Class 19 [Cancer Mutation Analysis](Class19/Class19.md)
->>>>>>> 9e6550a60ac02d9935de52b826a80e907ef82be3
