@@ -8,11 +8,11 @@ My classwork from [BIMM143](https://bioboot.github.io/bimm143_W26/) at UC San Di
   
 - [Class 05 — Data wiz with ggplot](class05/class05.md)
   
-- [Class 06 — R Functions](class06/class06.md)
+- [Class 06 — R Functions](class06/class06.html)
   
 - [Class 07 — Machine Learning 1](Class07/class07.md)
   
-- [Class 08 — Breast Cancer Mini Project](Class08/class08.md)
+- [Class 08 — Breast Cancer Mini Project](Class08/class08.html)
   
 - [Class 09 — Halloween Candy Mini Project](Class09/Class09.md)
   
