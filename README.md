@@ -1,7 +1,6 @@
 # BIMM143 (Bioinformatics Labratory) Winter '26
 My classwork from [BIMM143](https://bioboot.github.io/bimm143_W26/) at UC San Diego
 
-
 * A list of work I have completed throughout the quarter:
 
 Class 04 [R fundamentals](class04/class04.pdf)
